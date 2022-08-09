@@ -6,6 +6,8 @@ body {
   height: 100%;
   color: #0f0f0f;
 }
+
+/* Header Section */
 #header {
   border: 1px solid #1f1f1f;
   border-radius: 20px;
@@ -37,14 +39,16 @@ h1 {
   color: #1f1f1f;
 }
 
-input {
+#search-input {
   all: unset;
   font: 16px system-ui;
   color: #1f1f1f;
   height: 100%;
   width: 100%;
   padding: 6px 10px;
+  outline: none;
 }
+
 ::placeholder {
   color: #1f1f1f;
   opacity: 0.6;
@@ -63,4 +67,46 @@ input {
   width: 24px;
   height: 24px;
   padding: 10px;
+}
+
+
+/* Forecast section */
+#weather {
+  border: 1px solid #1f1f1f;
+  border-radius: 20px;
+  margin: 10px 10px;
+  height: 300px;
+  color: #3f4e4f;
+  /* First Box's shadow section */
+  transform: perspective(1500px) rotateY(0deg);
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  transition: transform 1s ease 0s;
+}
+
+.location, .temperature{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: line;
+}
+
+.temperature {
+  flex-direction: column;
+}
+
+.degree-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.degree-section span {
+  margin: 10px;
+  font-size: 30px;
+}
+
+.degree-section h3 {
+  font-size: 40px;
 }
