@@ -4,7 +4,9 @@ window.addEventListener("load", () => {
   const icon = document.querySelector("#wicon");
   const description = document.querySelector(".temperature-description");
   const locationTimezone = document.querySelector(".location-timezone");
-    const temperatureSection = document.querySelector(".temperature span");
+  const temperatureSection = document.querySelector(".degree-section span");
+  const cityName = document.querySelector("#city");
+
   // API section
   let long;
   let lat;
@@ -21,31 +23,41 @@ window.addEventListener("load", () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-
           //   set DOM elements from the API
+          //   -----------------------------------------
           //   temperature information
-          temperature.textContent = (data.main.temp - 272.15).toFixed(1);
+          let temperatureDegree = data.main.temp - 272.15;
+          temperature.textContent = temperatureDegree.toFixed(1);
+
           //   ICON information
           var iconCode = data.weather[0].icon;
           var iconURL = "http://openweathermap.org/img/w/" + iconCode + ".png";
           icon.src = `${iconURL}`;
+
           //   Temperature Description
           description.textContent = data.weather[0].description.replace(
             /(^\w{1})|(\s+\w{1})/g,
             (letter) => letter.toUpperCase()
           );
-        //   Location Timezone
-        locationTimezone.textContent = `UTC+${data.timezone/3600}`;
-            // Change temperature to Celcius / Fahrenheit
-            temperatureSection.addEventListener('click',() => {
-                if(temperatureSection.innerHTML === '&#8457') {
-                     temperatureSection.innerHTML = '&#8451';
-                }else {
-                    temperatureSection.textContent = '&#8457';
-                }
-                console.log(temperatureSection.innerHTML);
-            })
+
+          // Location Timezone
+          locationTimezone.textContent = `UTC+${data.timezone / 3600}`;
+
+          // Change temperature to Celcius / Fahrenheit
+          temperatureSection.addEventListener("click", () => {
+            if (temperatureSection.textContent === "C") {
+              temperatureSection.textContent = "F";
+              temperatureDegree = temperatureDegree * 1.8 + 32;
+              console.log(temperatureDegree);
+            } else {
+              temperatureSection.textContent = "C";
+              temperatureDegree = (temperatureDegree - 32) / 1.8;
+            }
+            temperature.textContent = temperatureDegree.toFixed(1);
+          });
+
+          //   City Information
+          cityName.textContent = data.name;
         });
     });
   }
